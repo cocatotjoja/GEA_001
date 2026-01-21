@@ -166,10 +166,10 @@ Window::StaticWindowResizeCallback(GLFWwindow* win, int32 x, int32 y)
 /**
 */
 void
-Window::StaticCloseCallback(GLFWwindow* window)
+Window::StaticCloseCallback(GLFWwindow* win)
 {
-	// FIXME: should be more graceful...
-	std::exit(0);
+	Window* window = (Window*)glfwGetWindowUserPointer(win);
+	window->Close();
 }
 
 //------------------------------------------------------------------------------
@@ -350,9 +350,12 @@ Window::Open()
 void
 Window::Close()
 {
-	if (nullptr != this->window) glfwDestroyWindow(this->window);
-	this->window = nullptr;
-	Window::WindowCount--;
+	if (nullptr != this->window)
+	{
+		glfwDestroyWindow(this->window);
+		this->window = nullptr;
+		Window::WindowCount--;
+	}
 	if (Window::WindowCount == 0)
 	{
 		ImGui_ImplOpenGL3_Shutdown();

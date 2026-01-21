@@ -223,7 +223,7 @@ SpaceGameApp::Run()
         dt = std::min(0.04, std::chrono::duration<double>(timeEnd - timeStart).count());
 
         if (kbd->pressed[Input::Key::Code::Escape])
-            this->Exit();
+            this->window->Close();
 	}
 }
 
@@ -233,7 +233,11 @@ SpaceGameApp::Run()
 void
 SpaceGameApp::Exit()
 {
-    this->window->Close();
+    n_printf("Memory Leak: %i\n", thisAlloc.current());
+    if (this->window->IsOpen())
+    {
+        this->window->Close();
+    }
 }
 
 //------------------------------------------------------------------------------

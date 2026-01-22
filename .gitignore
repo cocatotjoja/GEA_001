@@ -17,8 +17,8 @@
 # Mono auto generated files
 mono_crash.*
 
-[Bb]uild/
-[Bb]uilds/
+# [Bb]uild/
+# [Bb]uilds/
 
 # Build results
 [Dd]ebug/

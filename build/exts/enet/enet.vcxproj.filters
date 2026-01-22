@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\callbacks.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\compress.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\host.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\list.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\packet.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\peer.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\protocol.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\unix.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\win32.c">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\callbacks.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\enet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\list.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\protocol.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\time.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\unix.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\utility.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\include\enet\win32.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\larcat-4-local\Documents\GitHub\GEA_001\exts\enet\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{D8F546E5-F759-30B5-9A97-48C3BFCB6B9C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{345A52FF-BDBA-3733-A9B5-441ABE71FE3B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

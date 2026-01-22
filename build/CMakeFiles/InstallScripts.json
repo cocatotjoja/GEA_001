@@ -1,0 +1,20 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/flatbuffers/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/glm/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/enet/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/soloud/contrib/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/glew/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/glfw/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/exts/glfw/src/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/engine/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/engine/core/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/engine/render/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/projects/cmake_install.cmake",
+		"C:/Users/larcat-4-local/Documents/GitHub/GEA_001/build/projects/spacegame/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

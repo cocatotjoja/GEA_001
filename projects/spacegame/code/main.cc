@@ -8,6 +8,10 @@
 int
 main(int argc, const char** argv)
 {
+	// NEW[] and DELETE[] test
+	int* arr = new int[1000000];
+	delete[] arr; // Doesn't get called
+
 	Game::SpaceGameApp app;
 	if (app.Open())
 	{

@@ -1,28 +1,38 @@
 #include "config.h"
 #include "memoryManager.h"
 
+
 AllocationsM thisAlloc = AllocationsM();
-/*
+
 Arena::Arena(size_t size)
 {
 	capacity = size;
-	buffer = static_cast<byte*>(malloc(capacity));
-	assert(buffer && "Failed to allocate Arena");
+	buffer = static_cast<std::uint8_t*>(malloc(capacity));
+	std::cout << "Arena Created!" << std::endl;
 }
-*/
 
-template<typename TYPE>
-void Allocate()
+void* Arena::Alloc(std::size_t size, std::size_t align)
 {
-	static_assert(std::is_trivial(TYPE));
+	// Prevent division(modulus) by zero
+	if (align == 0)
+	{
+		align = alignof(std::max_align_t);
+	}
 
-	size_t size = sizeof(TYPE);
-	size_t align = alignof(TYPE);
+	// Assure alignment
+	std::size_t newOffset = offset + (align - (offset % align)) % align;
+
+	// Chcek if enough space
+	if (newOffset + size > capacity)
+	{
+		return nullptr;
+	}
+
+	// Create return address
+	void* returnPTR = buffer + newOffset;
+
+	// Update offset
+	offset = newOffset + size;
+
+	return returnPTR;
 }
-
-
-|iiii----dddddddd------------------|
- ^
- offset
- ^
- buffer

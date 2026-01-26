@@ -233,7 +233,8 @@ SpaceGameApp::Run()
 void
 SpaceGameApp::Exit()
 {
-    n_printf("Memory Leak: %i\n", thisAlloc.current());
+    n_printf("Memory Leak: %i\n", thisAlloc.MemoryUsed());
+    n_printf("Arrays Leaked: %i\n", thisAlloc.ArraysUSed());
     if (this->window->IsOpen())
     {
         this->window->Close();

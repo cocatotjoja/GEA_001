@@ -2,8 +2,9 @@
 
 #include <cstddef>
 #include <iostream>
+#include <mutex>
 
-
+std::mutex mtx;
 
 struct AllocationsM
 {
@@ -21,23 +22,29 @@ extern AllocationsM thisAlloc;
 
 inline void* operator new(size_t size)
 {
+	mtx.lock();
 	//std::cout << "Memory Allocated: " << size << std::endl;
 	thisAlloc.allocated += size;
+	mtx.unlock();
 	void* memory = malloc(size);
 	return memory;
 }
 
 inline void operator delete(void* memory, size_t size)
 {
+	mtx.lock();
 	//std::cout << "Memory Freed: " << size << std::endl;
 	thisAlloc.freed += size;
+	mtx.unlock();
 	free(memory);
 }
 
 inline void* operator new[](std::size_t size)
 {
+	mtx.lock();
 	std::cout << "Array Allocated!" << std::endl;
 	thisAlloc.arrayAlloc++;
+	mtx.unlock();
 
 	if (void* p = std::malloc(size))
 		return p;
@@ -47,8 +54,11 @@ inline void* operator new[](std::size_t size)
 
 inline void operator delete[](void* ptr) noexcept
 {
+	mtx.lock();
 	std::cout << "Array Freed!" << std::endl;
 	thisAlloc.arrayFree++;
+	mtx.unlock();
+
 	free(ptr);
 }
 

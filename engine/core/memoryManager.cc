@@ -22,13 +22,19 @@ void* Arena::Alloc(std::size_t size, std::size_t align)
 	// Assure alignment
 	std::size_t newOffset = offset + (align - (offset % align)) % align;
 
-	// Chcek if enough space
+	// Check if enough space left (IF NOT ADD NEW BUFFER IN VECTOR)
 	if (newOffset + size > capacity)
 	{
 		return nullptr;
 	}
 
-	// Create return address
+	// Check if size bigger than buffer capacity (WILL NEED CHANGING)
+	if (newOffset + size > capacity)
+	{
+		return nullptr;
+	}
+
+	// Create return address (CHANGE to return vector.back() + newOffset)
 	void* returnPTR = buffer + newOffset;
 
 	// Update offset

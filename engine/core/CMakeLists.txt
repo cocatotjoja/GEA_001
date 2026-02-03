@@ -14,6 +14,8 @@ SET(files_core
 	idpool.h
 	memoryManager.h
 	memoryManager.cc
+	entity.h
+	entity.cc
 	)
 SOURCE_GROUP("core" FILES ${files_core})
 	

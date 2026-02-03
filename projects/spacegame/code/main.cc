@@ -95,9 +95,6 @@ void MemoryTest()
 int
 main(int argc, const char** argv)
 {
-	MemoryTest();
-
-
 	// Game loop
 	Game::SpaceGameApp app;
 	if (app.Open())
@@ -106,6 +103,5 @@ main(int argc, const char** argv)
 		app.Close();
 	}
 	app.Exit();
-	
 }
 

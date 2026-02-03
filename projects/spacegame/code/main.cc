@@ -5,8 +5,8 @@
 #include "config.h"
 #include "spacegameapp.h"
 
-int
-main(int argc, const char** argv)
+
+void MemoryTest()
 {
 	//Memory Leak Tests
 	int* x = new int;
@@ -90,9 +90,12 @@ main(int argc, const char** argv)
 	std::cout << std::endl;
 
 	std::cout << std::endl;
+}
 
-
-
+int
+main(int argc, const char** argv)
+{
+	MemoryTest();
 
 
 	// Game loop
@@ -105,3 +108,4 @@ main(int argc, const char** argv)
 	app.Exit();
 	
 }
+

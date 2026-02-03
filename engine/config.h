@@ -26,6 +26,7 @@
 #include "core/debug.h"
 #include "core/memoryManager.h"
 #include "core/entity.h"
+#include "core/components.h"
 
 typedef size_t index_t;
 typedef unsigned int uint;

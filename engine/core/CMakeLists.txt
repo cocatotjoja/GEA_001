@@ -16,6 +16,8 @@ SET(files_core
 	memoryManager.cc
 	entity.h
 	entity.cc
+	components.h
+	components.cc
 	)
 SOURCE_GROUP("core" FILES ${files_core})
 	

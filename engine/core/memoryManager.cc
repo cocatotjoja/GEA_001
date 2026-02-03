@@ -1,7 +1,7 @@
 #include "config.h"
 #include "memoryManager.h"
 
-
+std::mutex mtx;
 AllocationsM thisAlloc = AllocationsM();
 
 Arena::Arena(size_t size)

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <mutex>
 
-std::mutex mtx;
+extern std::mutex mtx;
 
 struct AllocationsM
 {

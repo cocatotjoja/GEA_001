@@ -1,5 +1,4 @@
-#include "config.h"
-#include "memoryManager.h"
+#include "components.h"
 
 std::mutex mtx;
 AllocationsM thisAlloc = AllocationsM();
@@ -40,5 +39,46 @@ void* Arena::Alloc(std::size_t size, std::size_t align)
 	// Update offset
 	offset = newOffset + size;
 
-	return returnPTR;
+	return returnPTR; 
+}
+
+
+// Mesh Component functions------------------------------------------------------------------------------
+
+Render::ModelId Thingies::MeshComp::GetMesh()
+{
+	return mesh;
+}
+
+glm::mat4 Thingies::MeshComp::GetTransform()
+{
+	return transform->GetTransform();
+}
+
+
+
+
+
+// Transform Component functions-------------------------------------------------------------------------
+
+Thingies::TransformComp::TransformComp(glm::mat4 trans)
+{
+	transform = trans;
+}
+
+glm::mat4 Thingies::TransformComp::GetTransform()
+{
+	return transform;
+}
+
+
+
+
+
+
+// Transform Component functions-------------------------------------------------------------------------
+
+Physics::ColliderId Thingies::ColliderComp::GetCollider()
+{
+	return collider;
 }

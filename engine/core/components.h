@@ -1,14 +1,18 @@
 #pragma once
 
 #include <iostream>
-#include "core/entity.h" // IS this correct ASK FREDRIK!!!!
+#include "config.h"
+#include "render/model.h"
+#include "render/physics.h"
+#include "render/resourceid.h"
+#include "core/random.h"
 
 
 enum CompType
 {
 	TRANSFORM,
 	MOVE,
-	DRAW,
+	MESH,
 	LIGHT
 };
 
@@ -16,6 +20,9 @@ enum CompType
 
 namespace Thingies
 {
+//----------------------------------------------------------------------------------------------------------------------------------
+
+
 class BaseComponent
 {
 private:
@@ -25,17 +32,66 @@ private:
 
 public:
 	BaseComponent();
-	~BaseComponent();
+	virtual ~BaseComponent();
 
 	// Performs all component behavior
 	virtual void Update();
 
 
 	// Sets up any needed connecuions to other components
-	void Start();
+	virtual void Start();
 	
 	// Function to get owner entity
 	Entity* GetOwner();
 	CompType GetType();
 };
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+// Child component classes
+
+class MeshComp : public BaseComponent
+{
+private:
+	Render::ModelId mesh;
+	TransformComp* transform;
+	
+public:
+	void Start() override;
+	MeshComp(Render::ModelId mID) : mesh(mID) {} ;
+	~MeshComp();
+	Render::ModelId GetMesh();
+	glm::mat4 GetTransform();
+
+};
+
+class TransformComp : public BaseComponent
+{
+private:
+	glm::mat4 transform;
+
+public:
+	TransformComp(glm::mat4 trans) : transform(trans) {} ;
+	~TransformComp();
+	glm::mat4 GetTransform();
+};
+
+class ColliderComp : public BaseComponent
+{
+private:
+	Physics::ColliderId collider;
+
+public:
+	ColliderComp(Physics::ColliderId cID) : collider(cID) {} ;
+	~ColliderComp();
+	Physics::ColliderId GetCollider();
+};
+
+
+
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------------------
 }

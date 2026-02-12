@@ -1,11 +1,15 @@
 #include "config.h"
-#include "entity.h"
 
 using namespace Thingies;
 
 Entity::~Entity()
 {
 	compList.clear();
+}
+
+void Thingies::Entity::AddComp(BaseComponent* newComp)
+{
+	compList.push_back(newComp);
 }
 
 

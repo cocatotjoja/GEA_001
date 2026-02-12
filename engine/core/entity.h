@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include "core/components.h"
+#include "config.h"
+
 
 namespace Thingies
 {

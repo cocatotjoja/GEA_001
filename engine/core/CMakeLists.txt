@@ -18,6 +18,8 @@ SET(files_core
 	entity.cc
 	components.h
 	components.cc
+	worldManager.h
+	worldManager.cc
 	)
 SOURCE_GROUP("core" FILES ${files_core})
 	

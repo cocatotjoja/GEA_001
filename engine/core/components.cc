@@ -1,46 +1,6 @@
+#include "config.h"
 #include "components.h"
-
-std::mutex mtx;
-AllocationsM thisAlloc = AllocationsM();
-
-Arena::Arena(size_t size)
-{
-	capacity = size;
-	buffer = static_cast<std::uint8_t*>(malloc(capacity));
-	std::cout << "Arena Created!" << std::endl;
-}
-
-void* Arena::Alloc(std::size_t size, std::size_t align)
-{
-	// Prevent division(modulus) by zero
-	if (align == 0)
-	{
-		align = alignof(std::max_align_t);
-	}
-
-	// Assure alignment
-	std::size_t newOffset = offset + (align - (offset % align)) % align;
-
-	// Check if enough space left (IF NOT ADD NEW BUFFER IN VECTOR)
-	if (newOffset + size > capacity)
-	{
-		return nullptr;
-	}
-
-	// Check if size bigger than buffer capacity (WILL NEED CHANGING)
-	if (newOffset + size > capacity)
-	{
-		return nullptr;
-	}
-
-	// Create return address (CHANGE to return vector.back() + newOffset)
-	void* returnPTR = buffer + newOffset;
-
-	// Update offset
-	offset = newOffset + size;
-
-	return returnPTR; 
-}
+#include "entity.h"
 
 
 // Mesh Component functions------------------------------------------------------------------------------
@@ -50,7 +10,7 @@ Render::ModelId Thingies::MeshComp::GetMesh()
 	return mesh;
 }
 
-glm::mat4 Thingies::MeshComp::GetTransform()
+glm::mat4 Thingies::MeshComp::PullTransform()
 {
 	return transform->GetTransform();
 }
@@ -60,11 +20,6 @@ glm::mat4 Thingies::MeshComp::GetTransform()
 
 
 // Transform Component functions-------------------------------------------------------------------------
-
-Thingies::TransformComp::TransformComp(glm::mat4 trans)
-{
-	transform = trans;
-}
 
 glm::mat4 Thingies::TransformComp::GetTransform()
 {

@@ -2,11 +2,11 @@
 
 #include <iostream>
 #include <vector>
-#include "config.h"
-
+#include "components.h"
 
 namespace Thingies
 {
+
 class Entity
 {
 private:

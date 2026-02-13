@@ -25,9 +25,6 @@
 #include "gtc/quaternion.hpp"
 #include "core/debug.h"
 #include "core/memoryManager.h"
-#include "core/entity.h"
-//#include "core/worldManager.h"
-//#include "core/components.h"
 
 typedef size_t index_t;
 typedef unsigned int uint;

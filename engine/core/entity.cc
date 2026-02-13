@@ -1,4 +1,5 @@
 #include "config.h"
+#include "core/entity.h"
 
 using namespace Thingies;
 

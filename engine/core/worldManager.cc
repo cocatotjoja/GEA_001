@@ -1,5 +1,6 @@
+#include "config.h"
 #include "worldManager.h"
-
+#include "entity.h"
 
 using namespace Thingies;
 
@@ -21,15 +22,19 @@ void WorldManager::Start()
     colliderMeshes[4] = Physics::LoadColliderMesh("assets/space/Asteroid_5_physics.glb");
     colliderMeshes[5] = Physics::LoadColliderMesh("assets/space/Asteroid_6_physics.glb");
     
-
+    // Add near asteroids
     for (size_t i = 0; i < 100; i++)
     {
-        AddAsteroid()
-
+        AddAsteroid(20.0f);
+    }
+    // Add far asteroids
+    for (size_t i = 0; i < 50; i++)
+    {
+        AddAsteroid(80.0f);
     }
 }
 
-void WorldManager::AddAsteroid()
+void WorldManager::AddAsteroid(float span)
 {
     size_t resourceIndex = (size_t)(Core::FastRandom() % 6);
     // Create Asteroid Entity
@@ -39,7 +44,6 @@ void WorldManager::AddAsteroid()
 
     // Create Transform Component
     // Generate random location
-    float span = 80.0f;
     glm::vec3 translation = glm::vec3(
         Core::RandomFloatNTP() * span,
         Core::RandomFloatNTP() * span,

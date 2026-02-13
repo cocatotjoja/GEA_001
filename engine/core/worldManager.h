@@ -2,11 +2,11 @@
 
 #include <iostream>
 #include <vector>
-#include "config.h"
 #include "render/model.h"
 #include "render/physics.h"
 #include "render/resourceid.h"
 #include "core/random.h"
+#include "entity.h"
 
 namespace Thingies
 {
@@ -30,7 +30,7 @@ public:
 	void Start();
 	void Update();
 
-	void AddAsteroid();
+	void AddAsteroid(float span);
 };
 }
 

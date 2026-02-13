@@ -1,7 +1,5 @@
 #pragma once
-
 #include <iostream>
-#include "config.h"
 #include "render/model.h"
 #include "render/physics.h"
 #include "render/resourceid.h"
@@ -20,6 +18,9 @@ enum CompType
 
 namespace Thingies
 {
+
+class Entity;
+
 //----------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -50,6 +51,19 @@ public:
 
 // Child component classes
 
+
+class TransformComp : public BaseComponent
+{
+private:
+	glm::mat4 transform;
+
+public:
+	TransformComp(glm::mat4 trans) : transform(trans) {};
+	~TransformComp();
+	glm::mat4 GetTransform();
+};
+
+
 class MeshComp : public BaseComponent
 {
 private:
@@ -61,19 +75,8 @@ public:
 	MeshComp(Render::ModelId mID) : mesh(mID) {} ;
 	~MeshComp();
 	Render::ModelId GetMesh();
-	glm::mat4 GetTransform();
+	glm::mat4 PullTransform();
 
-};
-
-class TransformComp : public BaseComponent
-{
-private:
-	glm::mat4 transform;
-
-public:
-	TransformComp(glm::mat4 trans) : transform(trans) {} ;
-	~TransformComp();
-	glm::mat4 GetTransform();
 };
 
 class ColliderComp : public BaseComponent

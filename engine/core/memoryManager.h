@@ -1,5 +1,5 @@
 #pragma once
-
+/*
 #include <cstddef>
 #include <iostream>
 #include <mutex>
@@ -79,3 +79,5 @@ public:
 	void* Alloc(std::size_t size, std::size_t align = alignof(std::max_align_t));
 	void Reset() { offset = 0; }
 };
+
+*/

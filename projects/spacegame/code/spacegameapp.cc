@@ -20,6 +20,7 @@
 #include "render/physics.h"
 #include <chrono>
 #include "spaceship.h"
+#include "core/worldManager.h"
 
 using namespace Display;
 using namespace Render;
@@ -77,6 +78,11 @@ SpaceGameApp::Open()
 void
 SpaceGameApp::Run()
 {
+    // Create World Manager
+    Thingies::WorldManager worldM;
+    std::cout << "World Manager Created!" << std::endl;
+    worldM.Start();
+
     int w;
     int h;
     this->window->GetSize(w, h);
@@ -84,6 +90,7 @@ SpaceGameApp::Run()
     Camera* cam = CameraManager::GetCamera(CAMERA_MAIN);
     cam->projection = projection;
 
+    /*
     // load all resources
     ModelId models[6] = {
         LoadModel("assets/space/Asteroid_1.glb"),
@@ -101,9 +108,10 @@ SpaceGameApp::Run()
         Physics::LoadColliderMesh("assets/space/Asteroid_5_physics.glb"),
         Physics::LoadColliderMesh("assets/space/Asteroid_6_physics.glb")
     };
+    */
 
     std::vector<std::tuple<ModelId, Physics::ColliderId, glm::mat4>> asteroids;
-    
+    /*
     // Setup asteroids near
     for (int i = 0; i < 100; i++)
     {
@@ -143,6 +151,7 @@ SpaceGameApp::Run()
         std::get<2>(asteroid) = transform;
         asteroids.push_back(asteroid);
     }
+    */
 
     // Setup skybox
     std::vector<const char*> skybox
@@ -206,10 +215,17 @@ SpaceGameApp::Run()
         Debug::DrawDebugText("FOOBAR", glm::vec3(0), {1,0,0,1});
 
         // Store all drawcalls in the render device
+        for (size_t i = 0; i < 150; i++)
+        {
+            RenderDevice::Draw(worldM.GetMesh(i), worldM.GetTransform(i));
+        }
+
+        /*
         for (auto const& asteroid : asteroids)
         {
             RenderDevice::Draw(std::get<0>(asteroid), std::get<2>(asteroid));
         }
+        */
 
         RenderDevice::Draw(ship.model, ship.transform);
 
@@ -233,8 +249,8 @@ SpaceGameApp::Run()
 void
 SpaceGameApp::Exit()
 {
-    n_printf("Memory Leak: %i\n", thisAlloc.MemoryUsed());
-    n_printf("Arrays Leaked: %i\n", thisAlloc.ArraysUSed());
+    //n_printf("Memory Leak: %i\n", thisAlloc.MemoryUsed());
+    //n_printf("Arrays Leaked: %i\n", thisAlloc.ArraysUSed());
     if (this->window->IsOpen())
     {
         this->window->Close();

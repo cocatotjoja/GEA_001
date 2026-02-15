@@ -5,7 +5,7 @@
 #include "config.h"
 #include "spacegameapp.h"
 
-
+/*
 void MemoryTest()
 {
 	//Memory Leak Tests
@@ -91,6 +91,7 @@ void MemoryTest()
 
 	std::cout << std::endl;
 }
+*/
 
 int
 main(int argc, const char** argv)

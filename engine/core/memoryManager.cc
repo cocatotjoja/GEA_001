@@ -1,5 +1,5 @@
 #include "config.h"
-#include "memoryManager.h"
+/*
 
 std::mutex mtx;
 AllocationsM thisAlloc = AllocationsM();
@@ -42,3 +42,4 @@ void* Arena::Alloc(std::size_t size, std::size_t align)
 
 	return returnPTR;
 }
+*/

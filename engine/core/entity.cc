@@ -3,6 +3,11 @@
 
 using namespace Thingies;
 
+Thingies::Entity::Entity()
+{
+	//std::cout << "Entity Created!" << std::endl;
+}
+
 Entity::~Entity()
 {
 	compList.clear();
@@ -11,11 +16,14 @@ Entity::~Entity()
 void Thingies::Entity::AddComp(BaseComponent* newComp)
 {
 	compList.push_back(newComp);
+	//std::cout << compList.size() << std::endl;
 }
 
 
 BaseComponent* Entity::GetComp(CompType typeC)
 {
+	std::cout << compList.size() << std::endl;
+
 	for (BaseComponent* comp : compList)
 	{
 		if (comp->GetType() == typeC)
@@ -24,4 +32,9 @@ BaseComponent* Entity::GetComp(CompType typeC)
 		}
 	}
 	return nullptr;
+}
+
+void Thingies::Entity::PrintCompNum()
+{
+	std::cout << compList.size() << std::endl;
 }

@@ -1,8 +1,18 @@
 #include "config.h"
 #include "worldManager.h"
-#include "entity.h"
+//#include "entity.h"
 
 using namespace Thingies;
+
+Thingies::WorldManager::WorldManager()
+{
+    std::cout << "World Manager Created" << std::endl;
+}
+
+Thingies::WorldManager::~WorldManager()
+{
+    std::cout << "World Manager Destroyed" << std::endl;
+}
 
 void WorldManager::Start()
 {
@@ -39,8 +49,6 @@ void WorldManager::AddAsteroid(float span)
     size_t resourceIndex = (size_t)(Core::FastRandom() % 6);
     // Create Asteroid Entity
     entities.push_back(Entity());
-    // Add Mesh Component to mesh vector
-    meshes.push_back(MeshComp(models[resourceIndex]));
 
     // Create Transform Component
     // Generate random location
@@ -52,11 +60,14 @@ void WorldManager::AddAsteroid(float span)
     glm::vec3 rotationAxis = normalize(translation);
     float rotation = translation.x;
     glm::mat4 transform = glm::rotate(rotation, rotationAxis) * glm::translate(translation);
-    // Add to transform vector
-    transforms.push_back(TransformComp(transform));
+    // Add component to transform vector
+    transforms.push_back(TransformComp(&entities.back(), transform));
+
+    // Add Mesh Component to mesh vector
+    meshes.push_back(MeshComp(&entities.back(), models[resourceIndex], &transforms.back()));
 
     // Create Collider Component
-    colliders.push_back(ColliderComp(Physics::CreateCollider(colliderMeshes[resourceIndex], transform)));
+    colliders.push_back(ColliderComp(&entities.back(), Physics::CreateCollider(colliderMeshes[resourceIndex], transform)));
 
     // Add MeshComp to Asteroid
     entities.back().AddComp(&meshes.back());
@@ -64,6 +75,18 @@ void WorldManager::AddAsteroid(float span)
     entities.back().AddComp(&transforms.back());
     // Add Collider Comp to Asteroid
     entities.back().AddComp(&colliders.back());
+
+    //std::cout << "Asteroid Added!" << std::endl;
+}
+
+Render::ModelId Thingies::WorldManager::GetMesh(size_t index)
+{
+    return meshes[index].GetMesh();
+}
+
+glm::mat4 Thingies::WorldManager::GetTransform(size_t index)
+{
+    return meshes[index].PullTransform();
 }
 
 

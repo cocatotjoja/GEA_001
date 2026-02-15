@@ -8,9 +8,11 @@
 
 enum CompType
 {
+	BASE,
 	TRANSFORM,
 	MOVE,
 	MESH,
+	COLLIDER,
 	LIGHT
 };
 
@@ -28,15 +30,16 @@ class BaseComponent
 {
 private:
 	// Variable to store owner entity
-	Entity* owner;
-	CompType type;
 
 public:
+	Entity* owner;
+	CompType type;
 	BaseComponent();
+	BaseComponent(Entity* newOwner, CompType comptype) : owner(newOwner), type(comptype) {};
 	virtual ~BaseComponent();
 
 	// Performs all component behavior
-	virtual void Update();
+	//virtual void Update();
 
 
 	// Sets up any needed connecuions to other components
@@ -58,7 +61,7 @@ private:
 	glm::mat4 transform;
 
 public:
-	TransformComp(glm::mat4 trans) : transform(trans) {};
+	TransformComp(Entity* newOwner, glm::mat4 trans) : BaseComponent(newOwner, TRANSFORM), transform(trans) {};
 	~TransformComp();
 	glm::mat4 GetTransform();
 };
@@ -71,8 +74,8 @@ private:
 	TransformComp* transform;
 	
 public:
-	void Start() override;
-	MeshComp(Render::ModelId mID) : mesh(mID) {} ;
+	//void Start() override;
+	MeshComp(Entity* newOwner, Render::ModelId mID, TransformComp* trans) : BaseComponent(newOwner, MESH), mesh(mID), transform(trans) {} ;
 	~MeshComp();
 	Render::ModelId GetMesh();
 	glm::mat4 PullTransform();
@@ -85,7 +88,7 @@ private:
 	Physics::ColliderId collider;
 
 public:
-	ColliderComp(Physics::ColliderId cID) : collider(cID) {} ;
+	ColliderComp(Entity* newOwner, Physics::ColliderId cID) : BaseComponent(newOwner, COLLIDER), collider(cID) {} ;
 	~ColliderComp();
 	Physics::ColliderId GetCollider();
 };

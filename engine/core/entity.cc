@@ -38,3 +38,11 @@ void Thingies::Entity::PrintCompNum()
 {
 	std::cout << compList.size() << std::endl;
 }
+
+void Thingies::Entity::Draw()
+{
+	for (size_t i = 0; i < this->compList.size(); i++)
+	{
+		this->compList[i]->Draw();
+	}
+}

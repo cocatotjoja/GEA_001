@@ -41,6 +41,8 @@ public:
 	// Performs all component behavior
 	//virtual void Update();
 
+	virtual void Draw() {};
+
 
 	// Sets up any needed connecuions to other components
 	virtual void Start();
@@ -79,6 +81,8 @@ public:
 	~MeshComp();
 	Render::ModelId GetMesh();
 	glm::mat4 PullTransform();
+
+	void Draw() override;
 
 };
 

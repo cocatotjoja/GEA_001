@@ -110,8 +110,8 @@ SpaceGameApp::Run()
     };
     */
 
-    std::vector<std::tuple<ModelId, Physics::ColliderId, glm::mat4>> asteroids;
     /*
+    std::vector<std::tuple<ModelId, Physics::ColliderId, glm::mat4>> asteroids;
     // Setup asteroids near
     for (int i = 0; i < 100; i++)
     {
@@ -214,11 +214,13 @@ SpaceGameApp::Run()
         // Draw some debug text
         Debug::DrawDebugText("FOOBAR", glm::vec3(0), {1,0,0,1});
 
+        worldM.Update();
+
         // Store all drawcalls in the render device
-        for (size_t i = 0; i < 150; i++)
-        {
-            RenderDevice::Draw(worldM.GetMesh(i), worldM.GetTransform(i));
-        }
+        //for (size_t i = 0; i < 150; i++)
+        //{
+        //    RenderDevice::Draw(worldM.GetMesh(i), worldM.GetTransform(i));
+        //}
 
         /*
         for (auto const& asteroid : asteroids)

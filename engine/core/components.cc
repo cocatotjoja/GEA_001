@@ -1,6 +1,8 @@
 #include "config.h"
 #include "components.h"
 #include "entity.h"
+#include "render/renderdevice.h"
+
 
 
 // Base Component functions------------------------------------------------------------------------------
@@ -56,6 +58,11 @@ Render::ModelId Thingies::MeshComp::GetMesh()
 glm::mat4 Thingies::MeshComp::PullTransform()
 {
 	return transform->GetTransform();
+}
+
+void Thingies::MeshComp::Draw()
+{
+	Render::RenderDevice::Draw(this->GetMesh(), this->PullTransform());
 }
 
 

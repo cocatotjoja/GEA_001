@@ -16,6 +16,8 @@ Thingies::WorldManager::~WorldManager()
 
 void WorldManager::Start()
 {
+    this->entities.reserve(10000);
+
     // load all models
     models[0] = Render::LoadModel("assets/space/Asteroid_1.glb");
     models[1] = Render::LoadModel("assets/space/Asteroid_2.glb");
@@ -48,7 +50,8 @@ void WorldManager::AddAsteroid(float span)
 {
     size_t resourceIndex = (size_t)(Core::FastRandom() % 6);
     // Create Asteroid Entity
-    entities.push_back(Entity());
+    Entity* entity = new Entity();
+    entities.push_back(entity);
 
     // Create Transform Component
     // Generate random location
@@ -61,33 +64,48 @@ void WorldManager::AddAsteroid(float span)
     float rotation = translation.x;
     glm::mat4 transform = glm::rotate(rotation, rotationAxis) * glm::translate(translation);
     // Add component to transform vector
-    transforms.push_back(TransformComp(&entities.back(), transform));
+    
+    TransformComp* tComp = new TransformComp(entity, transform);
+    //transforms.push_back(TransformComp(&entities.back(), transform));
 
     // Add Mesh Component to mesh vector
-    meshes.push_back(MeshComp(&entities.back(), models[resourceIndex], &transforms.back()));
+    MeshComp* mComp = new MeshComp(entity, models[resourceIndex], tComp);
+    //meshes.push_back(MeshComp(&entities.back(), models[resourceIndex], &transforms.back()));
 
     // Create Collider Component
-    colliders.push_back(ColliderComp(&entities.back(), Physics::CreateCollider(colliderMeshes[resourceIndex], transform)));
+    ColliderComp* cComp = new ColliderComp(entity, Physics::CreateCollider(colliderMeshes[resourceIndex], transform));
+    //colliders.push_back(ColliderComp());
 
-    // Add MeshComp to Asteroid
-    entities.back().AddComp(&meshes.back());
     // Add TransformComp to Asteroid
-    entities.back().AddComp(&transforms.back());
+    entity->AddComp(tComp);
+    // Add MeshComp to Asteroid
+    entity->AddComp(mComp);
     // Add Collider Comp to Asteroid
-    entities.back().AddComp(&colliders.back());
+    entity->AddComp(cComp);
+    
 
     //std::cout << "Asteroid Added!" << std::endl;
 }
 
-Render::ModelId Thingies::WorldManager::GetMesh(size_t index)
+void WorldManager::Update()
 {
-    return meshes[index].GetMesh();
+    // TODO: Update entities
+    
+    for (size_t i = 0; i < this->entities.size(); i++)
+    {
+        this->entities[i]->Draw();
+    }
 }
 
-glm::mat4 Thingies::WorldManager::GetTransform(size_t index)
-{
-    return meshes[index].PullTransform();
-}
+//Render::ModelId Thingies::WorldManager::GetMesh(size_t index)
+//{
+//    return meshes[index].GetMesh();
+//}
+//
+//glm::mat4 Thingies::WorldManager::GetTransform(size_t index)
+//{
+//    return meshes[index].PullTransform();
+//}
 
 
 

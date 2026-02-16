@@ -14,12 +14,12 @@ class WorldManager
 {
 private:
 	// Vector for entities
-	std::vector<Entity> entities;
+	std::vector<Entity*> entities;
 
 	// Vectors for different components
-	std::vector<MeshComp> meshes;
-	std::vector<TransformComp> transforms;
-	std::vector<ColliderComp> colliders;
+	//std::vector<MeshComp> meshes;
+	//std::vector<TransformComp> transforms;
+	//std::vector<ColliderComp> colliders;
 
 
 	// Resources

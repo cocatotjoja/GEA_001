@@ -25,16 +25,16 @@ private:
 	// Resources
 	Render::ModelId models[6];
 	Physics::ColliderMeshId colliderMeshes[6];
+	Render::ModelId shipModel;
 
 public:
 	WorldManager();
 	~WorldManager();
 	void Start();
-	void Update();
+	void Update(float dt);
 
 	void AddAsteroid(float span);
-	Render::ModelId GetMesh(size_t index);
-	glm::mat4 GetTransform(size_t index);
+	void AddShip();
 	
 };
 }

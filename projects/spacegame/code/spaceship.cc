@@ -103,6 +103,7 @@ SpaceShip::Update(float dt)
     //this->particleEmitter->data.randomTimeOffsetDist = 0.06f;/// +(0.01f * t);
 }
 
+
 bool
 SpaceShip::CheckCollisions()
 {

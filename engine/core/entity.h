@@ -22,8 +22,7 @@ public:
 	// Searches the vector of components and returns a BaseComponent*, takes a CompType(ENUM)
 	BaseComponent* GetComp(CompType typeC);
 
+	void Update(float dt);
 	void Draw();
-
-	void PrintCompNum();
 };
 }

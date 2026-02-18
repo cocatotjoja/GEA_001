@@ -16,14 +16,11 @@ Entity::~Entity()
 void Thingies::Entity::AddComp(BaseComponent* newComp)
 {
 	compList.push_back(newComp);
-	//std::cout << compList.size() << std::endl;
 }
 
 
 BaseComponent* Entity::GetComp(CompType typeC)
 {
-	std::cout << compList.size() << std::endl;
-
 	for (BaseComponent* comp : compList)
 	{
 		if (comp->GetType() == typeC)
@@ -34,10 +31,15 @@ BaseComponent* Entity::GetComp(CompType typeC)
 	return nullptr;
 }
 
-void Thingies::Entity::PrintCompNum()
+
+void Thingies::Entity::Update(float dt)
 {
-	std::cout << compList.size() << std::endl;
+	for (size_t i = 0; i < this->compList.size(); i++)
+	{
+		this->compList[i]->Update(dt);
+	}
 }
+
 
 void Thingies::Entity::Draw()
 {

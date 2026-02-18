@@ -90,6 +90,7 @@ SpaceGameApp::Run()
     Camera* cam = CameraManager::GetCamera(CAMERA_MAIN);
     cam->projection = projection;
 
+    
     /*
     // load all resources
     ModelId models[6] = {
@@ -108,9 +109,8 @@ SpaceGameApp::Run()
         Physics::LoadColliderMesh("assets/space/Asteroid_5_physics.glb"),
         Physics::LoadColliderMesh("assets/space/Asteroid_6_physics.glb")
     };
-    */
+    
 
-    /*
     std::vector<std::tuple<ModelId, Physics::ColliderId, glm::mat4>> asteroids;
     // Setup asteroids near
     for (int i = 0; i < 100; i++)
@@ -186,8 +186,8 @@ SpaceGameApp::Run()
         lights[i] = Render::LightServer::CreatePointLight(translation, color, Core::RandomFloat() * 4.0f, 1.0f + (15 + Core::RandomFloat() * 10.0f));
     }
 
-    SpaceShip ship;
-    ship.model = LoadModel("assets/space/spaceship.glb");
+    //SpaceShip ship;
+    //ship.model = LoadModel("assets/space/spaceship.glb");
 
     std::clock_t c_start = std::clock();
     double dt = 0.01667f;
@@ -208,19 +208,14 @@ SpaceGameApp::Run()
             ShaderResource::ReloadShaders();
         }
 
-        ship.Update(dt);
-        ship.CheckCollisions();
+        //ship.Update(dt);
+        //ship.CheckCollisions();
 
         // Draw some debug text
         Debug::DrawDebugText("FOOBAR", glm::vec3(0), {1,0,0,1});
 
-        worldM.Update();
+        worldM.Update(dt);
 
-        // Store all drawcalls in the render device
-        //for (size_t i = 0; i < 150; i++)
-        //{
-        //    RenderDevice::Draw(worldM.GetMesh(i), worldM.GetTransform(i));
-        //}
 
         /*
         for (auto const& asteroid : asteroids)
@@ -229,7 +224,7 @@ SpaceGameApp::Run()
         }
         */
 
-        RenderDevice::Draw(ship.model, ship.transform);
+        //RenderDevice::Draw(ship.model, ship.transform);
 
         // Execute the entire rendering pipeline
         RenderDevice::Render(this->window, dt);

@@ -237,7 +237,7 @@ bool Thingies::ShipComp::CheckCollisions()
 
 
 // Laser Component functions-------------------------------------------------------------------------
-
+/*
 Thingies::LaserComp::LaserComp(ShipComp* sComp)
 {
     // Set component variables
@@ -280,3 +280,4 @@ void Thingies::LaserComp::Update(float dt)
         //Fire laser
     }
 }
+*/

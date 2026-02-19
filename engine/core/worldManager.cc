@@ -6,12 +6,12 @@ using namespace Thingies;
 
 Thingies::WorldManager::WorldManager()
 {
-    std::cout << "World Manager Created" << std::endl;
+    //std::cout << "World Manager Created" << std::endl;
 }
 
 Thingies::WorldManager::~WorldManager()
 {
-    std::cout << "World Manager Destroyed" << std::endl;
+    //std::cout << "World Manager Destroyed" << std::endl;
 }
 
 void WorldManager::Start()

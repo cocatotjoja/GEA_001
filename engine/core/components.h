@@ -157,6 +157,13 @@ public:
 
 };
 
+
+
+
+
+
+
+/*
 class LaserComp : public BaseComponent
 {
 private:
@@ -171,6 +178,7 @@ public:
 	void Update(float dt) override;
 	void Draw() override;
 };
+*/
 
 
 

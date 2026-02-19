@@ -110,7 +110,7 @@ Thingies::ShipComp::ShipComp(Entity* newOwner, Render::ModelId mID)
     uint32_t numParticles = 2048;
     this->particleEmitterLeft = new Render::ParticleEmitter(numParticles);
     this->particleEmitterLeft->data = {
-        .origin = glm::vec4(this->position + (glm::vec3(this->transform[2]) * emitterOffset),1),
+        .origin = glm::vec4(this->position + (glm::vec3(this->transform[2]) * emitterOffset),1), // TODO: Ask Fredrik to explain how this works after the ship moves (It is not updated in Update function)
         .dir = glm::vec4(glm::vec3(-this->transform[2]), 0),
         .startColor = glm::vec4(0.38f, 0.76f, 0.95f, 1.0f) * 2.0f,
         .endColor = glm::vec4(0,0,0,1.0f),
@@ -200,6 +200,7 @@ void Thingies::ShipComp::Update(float dt)
     //this->particleEmitter->data.decayTime = 0.16f;//+ (0.01f  * t);
     //this->particleEmitter->data.randomTimeOffsetDist = 0.06f;/// +(0.01f * t);
 
+
     CheckCollisions();
 }
 
@@ -227,8 +228,18 @@ bool Thingies::ShipComp::CheckCollisions()
             Debug::DrawDebugText("HIT", payload.hitPoint, glm::vec4(1, 1, 1, 1));
             hit = true;
         }
-    }
+    }  
     return hit;
+}
+
+glm::vec3 Thingies::ShipComp::GetPos()
+{
+    return position;
+}
+
+glm::mat4 Thingies::ShipComp::GetTrans()
+{
+    return transform;
 }
 
 
@@ -236,21 +247,22 @@ bool Thingies::ShipComp::CheckCollisions()
 
 
 
+
 // Laser Component functions-------------------------------------------------------------------------
-/*
 Thingies::LaserComp::LaserComp(ShipComp* sComp)
 {
     // Set component variables
     laserSpeed = 10.0f;
     ship = sComp;
-    glm::vec4 pos = ;
+
+
 
     // Create Particle emitter
-    uint32_t numParticles = 20;
+    numParticles = 10;
     emitter = new Render::ParticleEmitter(numParticles);
     this->emitter->data = {
         .origin = glm::vec4(0,0,0,1.0f), // TODO::SET POSITION
-        .dir = glm::vec4(0,0,0,1.0f), // TODO::SET DIRECTION
+        .dir = glm::vec4(glm::vec3(ship->GetTrans()[2]), 0),
         .startColor = glm::vec4(0.38f, 0.76f, 0.95f, 1.0f) * 2.0f,
         .endColor = glm::vec4(0,0,0,1.0f),
         .numParticles = numParticles,
@@ -265,6 +277,8 @@ Thingies::LaserComp::LaserComp(ShipComp* sComp)
         .emitterType = 1,
         .discRadius = 0.020f
     };
+    Render::ParticleSystem::Instance()->AddEmitter(emitter);
+
 }
 
 Thingies::LaserComp::~LaserComp()
@@ -277,7 +291,7 @@ void Thingies::LaserComp::Update(float dt)
     Input::Keyboard* kbd = Input::GetDefaultKeyboard();
     if (kbd->held[Input::Key::Space])
     {
-        //Fire laser
+        //Emitt particles
+        // Raycast
     }
 }
-*/

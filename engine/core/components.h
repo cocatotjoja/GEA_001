@@ -100,7 +100,7 @@ public:
 
 class ShipComp : public BaseComponent
 {
-	// ASK FREDRIK: position vs transform(is thransform the rotation?)
+	// ASK FREDRIK: position vs transform(is transform the rotation?)
 private:
 	glm::vec3 position = glm::vec3(0);
 	glm::quat orientation = glm::identity<glm::quat>();
@@ -154,6 +154,8 @@ public:
 	void Update(float dt) override;
 	void Draw() override;
 	bool CheckCollisions();
+	glm::vec3 GetPos();
+	glm::mat4 GetTrans();
 
 };
 
@@ -163,22 +165,21 @@ public:
 
 
 
-/*
+
 class LaserComp : public BaseComponent
 {
 private:
 	float laserSpeed;
 	ShipComp* ship;
-	glm::vec4 pos;
 	Render::ParticleEmitter* emitter;
+	uint32_t numParticles;
 
 public:
 	LaserComp(ShipComp* sComp);
 	~LaserComp();
 	void Update(float dt) override;
-	void Draw() override;
 };
-*/
+
 
 
 

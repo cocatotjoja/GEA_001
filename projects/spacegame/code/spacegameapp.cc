@@ -186,8 +186,8 @@ SpaceGameApp::Run()
         lights[i] = Render::LightServer::CreatePointLight(translation, color, Core::RandomFloat() * 4.0f, 1.0f + (15 + Core::RandomFloat() * 10.0f));
     }
 
-    //SpaceShip ship;
-    //ship.model = LoadModel("assets/space/spaceship.glb");
+    // SpaceShip ship;
+    // ship.model = LoadModel("assets/space/spaceship.glb");
 
     std::clock_t c_start = std::clock();
     double dt = 0.01667f;
@@ -208,8 +208,8 @@ SpaceGameApp::Run()
             ShaderResource::ReloadShaders();
         }
 
-        //ship.Update(dt);
-        //ship.CheckCollisions();
+        // ship.Update(dt);
+        // ship.CheckCollisions();
 
         // Draw some debug text
         Debug::DrawDebugText("FOOBAR", glm::vec3(0), {1,0,0,1});

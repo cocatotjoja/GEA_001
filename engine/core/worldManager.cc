@@ -36,6 +36,7 @@ void WorldManager::Start()
 
     // Load ship model
     shipModel = Render::LoadModel("assets/space/spaceship.glb");
+    AddShip();
     
     // Add near asteroids
     for (size_t i = 0; i < 100; i++)
@@ -91,7 +92,9 @@ void Thingies::WorldManager::AddShip()
 
     // Add Ship Component
     ShipComp* sComp = new ShipComp(entity, shipModel);
+    entity->AddComp(sComp);
 }
+
 
 void WorldManager::Update(float dt)
 {

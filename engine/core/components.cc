@@ -200,6 +200,7 @@ void Thingies::ShipComp::Update(float dt)
     //this->particleEmitter->data.decayTime = 0.16f;//+ (0.01f  * t);
     //this->particleEmitter->data.randomTimeOffsetDist = 0.06f;/// +(0.01f * t);
 
+    // Add transformcomp.transform = this->tramsform
 
     CheckCollisions();
 }
@@ -258,7 +259,7 @@ Thingies::LaserComp::LaserComp(ShipComp* sComp)
 
 
     // Create Particle emitter
-    numParticles = 10;
+    numParticles = 1;
     emitter = new Render::ParticleEmitter(numParticles);
     this->emitter->data = {
         .origin = glm::vec4(0,0,0,1.0f), // TODO::SET POSITION
@@ -273,7 +274,7 @@ Thingies::LaserComp::LaserComp(ShipComp* sComp)
         .endScale = 0.0f,
         .decayTime = 2.58f,
         .randomTimeOffsetDist = 2.58f,
-        .looping = 1,
+        .looping = 0,
         .emitterType = 1,
         .discRadius = 0.020f
     };
@@ -291,6 +292,7 @@ void Thingies::LaserComp::Update(float dt)
     Input::Keyboard* kbd = Input::GetDefaultKeyboard();
     if (kbd->held[Input::Key::Space])
     {
+        //Update Position
         //Emitt particles
         // Raycast
     }

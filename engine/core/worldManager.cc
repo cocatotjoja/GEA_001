@@ -90,6 +90,7 @@ void WorldManager::AddShip()
     MeshComp* mComp = new MeshComp(entity, shipModel, tComp);
     ShipComp* sComp = new ShipComp(entity, tComp);
     HealthComp* hComp = new HealthComp(entity, 100);
+    LaserComp* lComp = new LaserComp(entity, tComp);
 
     entity->AddComp(tComp);
     entity->AddComp(mComp);

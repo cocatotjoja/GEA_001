@@ -66,8 +66,6 @@ void Thingies::MeshComp::Draw()
 
 
 
-
-
 // Transform Component functions-------------------------------------------------------------------------
 
 Thingies::TransformComp::~TransformComp()
@@ -87,9 +85,6 @@ void Thingies::TransformComp::SetTransform(glm::mat4 newTrans)
 
 
 
-
-
-
 // Collider Component functions-------------------------------------------------------------------------
 
 Thingies::ColliderComp::~ColliderComp()
@@ -104,9 +99,6 @@ Physics::ColliderId Thingies::ColliderComp::GetCollider()
 
 
 
-
-
-
 // Move Component functions-------------------------------------------------------------------------
 
 void Thingies::MoveComp::Update(float dt)
@@ -114,9 +106,6 @@ void Thingies::MoveComp::Update(float dt)
     glm::mat4 temp = glm::rotate(transform->GetTransform(), angle, axis);
     transform->SetTransform(temp);
 }
-
-
-
 
 
 
@@ -136,8 +125,6 @@ int Thingies::HealthComp::GetHealth()
 {
     return health;
 }
-
-
 
 
 
@@ -273,23 +260,14 @@ glm::vec3 Thingies::ShipComp::GetPos()
     return position;
 }
 
-glm::mat4 Thingies::ShipComp::GetTrans()
-{
-    return transform;
-}
-
-
-
-
-
 
 
 // Laser Component functions-------------------------------------------------------------------------
-Thingies::LaserComp::LaserComp(ShipComp* sComp)
+Thingies::LaserComp::LaserComp(Entity* newOwner, TransformComp* tComp)
 {
     // Set component variables
     laserSpeed = 10.0f;
-    ship = sComp;
+    transComp = tComp;
 
 
 
@@ -298,7 +276,7 @@ Thingies::LaserComp::LaserComp(ShipComp* sComp)
     emitter = new Render::ParticleEmitter(numParticles);
     this->emitter->data = {
         .origin = glm::vec4(0,0,0,1.0f), // TODO::SET POSITION
-        .dir = glm::vec4(glm::vec3(ship->GetTrans()[2]), 0),
+        .dir = glm::vec4(glm::vec3(transComp->GetTransform()[2]), 0),
         .startColor = glm::vec4(0.38f, 0.76f, 0.95f, 1.0f) * 2.0f,
         .endColor = glm::vec4(0,0,0,1.0f),
         .numParticles = numParticles,

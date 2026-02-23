@@ -178,7 +178,6 @@ public:
 	void Update(float dt) override;
 	bool CheckCollisions();
 	glm::vec3 GetPos();
-	glm::mat4 GetTrans();
 
 };
 
@@ -186,12 +185,12 @@ class LaserComp : public BaseComponent
 {
 private:
 	float laserSpeed;
-	ShipComp* ship;
+	TransformComp* transComp;
 	Render::ParticleEmitter* emitter;
 	uint32_t numParticles;
 
 public:
-	LaserComp(ShipComp* sComp);
+	LaserComp(Entity* newOwner, TransformComp* tComp);
 	~LaserComp();
 	void Update(float dt) override;
 };

@@ -14,6 +14,7 @@ enum CompType
 	MOVE,
 	MESH,
 	COLLIDER,
+	HEALTH,
 	SHIP,
 	LIGHT
 };
@@ -67,6 +68,7 @@ public:
 	TransformComp(Entity* newOwner, glm::mat4 trans) : BaseComponent(newOwner, TRANSFORM), transform(trans) {};
 	~TransformComp();
 	glm::mat4 GetTransform();
+	void SetTransform(glm::mat4 newTrans);
 };
 
 class MeshComp : public BaseComponent
@@ -97,11 +99,34 @@ public:
 	Physics::ColliderId GetCollider();
 };
 
+class MoveComp : public BaseComponent
+{
+private:
+	TransformComp* transform;
+	glm::vec3 axis;
+	float angle;
+
+public:
+	MoveComp(Entity* newOwner, glm::vec3 ax, float radian, TransformComp* trans) : BaseComponent(newOwner, MOVE), axis(ax), angle(radian), transform(trans) {} ;
+	void Update(float dt) override;
+};
+
+class HealthComp : public BaseComponent
+{
+private:
+	int health;
+
+public:
+	HealthComp(Entity* newOwner, int hp) : BaseComponent(newOwner, HEALTH), health(hp) {};
+	void LoseHealth(int hit);
+	void AddHealth(int potion);
+	int GetHealth();
+};
 
 class ShipComp : public BaseComponent
 {
-	// ASK FREDRIK: position vs transform(is transform the rotation?)
 private:
+	TransformComp* transComp;
 	glm::vec3 position = glm::vec3(0);
 	glm::quat orientation = glm::identity<glm::quat>();
 	glm::vec3 camPos = glm::vec3(0, 1.0f, -2.0f);
@@ -121,7 +146,6 @@ private:
 	float rotYSmooth = 0;
 	float rotZSmooth = 0;
 
-	Render::ModelId model;
 	Render::ParticleEmitter* particleEmitterLeft;
 	Render::ParticleEmitter* particleEmitterRight;
 	float emitterOffset = -0.5f;
@@ -149,22 +173,14 @@ private:
 	};
 
 public:
-	ShipComp(Entity* newOwner, Render::ModelId mID);
+	ShipComp(Entity* newOwner, TransformComp* trans);
 	~ShipComp();
 	void Update(float dt) override;
-	void Draw() override;
 	bool CheckCollisions();
 	glm::vec3 GetPos();
 	glm::mat4 GetTrans();
 
 };
-
-
-
-
-
-
-
 
 class LaserComp : public BaseComponent
 {

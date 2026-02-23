@@ -4,12 +4,12 @@
 
 using namespace Thingies;
 
-Thingies::WorldManager::WorldManager()
+WorldManager::WorldManager()
 {
     //std::cout << "World Manager Created" << std::endl;
 }
 
-Thingies::WorldManager::~WorldManager()
+WorldManager::~WorldManager()
 {
     //std::cout << "World Manager Destroyed" << std::endl;
 }
@@ -68,33 +68,34 @@ void WorldManager::AddAsteroid(float span)
     float rotation = translation.x;
     glm::mat4 transform = glm::rotate(rotation, rotationAxis) * glm::translate(translation);
     
-    // Add component to transform vector
+    
     TransformComp* tComp = new TransformComp(entity, transform);
-
-    // Add Mesh Component to mesh vector
     MeshComp* mComp = new MeshComp(entity, models[resourceIndex], tComp);
-
-    // Create Collider Component
     ColliderComp* cComp = new ColliderComp(entity, Physics::CreateCollider(colliderMeshes[resourceIndex], transform));
+    MoveComp* moveComp = new MoveComp(entity, rotationAxis, glm::radians(Core::RandomFloatNTP()*0.1f), tComp);
 
-    // Add TransformComp to Asteroid
+
     entity->AddComp(tComp);
-    // Add MeshComp to Asteroid
     entity->AddComp(mComp);
-    // Add Collider Comp to Asteroid
     entity->AddComp(cComp);
+    entity->AddComp(moveComp);
 }
 
-void Thingies::WorldManager::AddShip()
+void WorldManager::AddShip()
 {
     Entity* entity = new Entity();
     entities.push_back(entity);
 
-    // Add Ship Component
-    ShipComp* sComp = new ShipComp(entity, shipModel);
-    entity->AddComp(sComp);
-}
+    TransformComp* tComp = new TransformComp(entity, glm::mat4(1));
+    MeshComp* mComp = new MeshComp(entity, shipModel, tComp);
+    ShipComp* sComp = new ShipComp(entity, tComp);
+    HealthComp* hComp = new HealthComp(entity, 100);
 
+    entity->AddComp(tComp);
+    entity->AddComp(mComp);
+    entity->AddComp(sComp);
+    entity->AddComp(hComp);
+}
 
 void WorldManager::Update(float dt)
 {

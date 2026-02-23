@@ -80,7 +80,6 @@ SpaceGameApp::Run()
 {
     // Create World Manager
     Thingies::WorldManager worldM;
-    std::cout << "World Manager Created!" << std::endl;
     worldM.Start();
 
     int w;

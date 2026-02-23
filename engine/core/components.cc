@@ -80,6 +80,11 @@ glm::mat4 Thingies::TransformComp::GetTransform()
 	return transform;
 }
 
+void Thingies::TransformComp::SetTransform(glm::mat4 newTrans)
+{
+    transform = newTrans;
+}
+
 
 
 
@@ -102,15 +107,50 @@ Physics::ColliderId Thingies::ColliderComp::GetCollider()
 
 
 
+// Move Component functions-------------------------------------------------------------------------
+
+void Thingies::MoveComp::Update(float dt)
+{
+    glm::mat4 temp = glm::rotate(transform->GetTransform(), angle, axis);
+    transform->SetTransform(temp);
+}
+
+
+
+
+
+
+// Health Component functions-------------------------------------------------------------------------
+
+void Thingies::HealthComp::LoseHealth(int hit)
+{
+    health -= hit;
+}
+
+void Thingies::HealthComp::AddHealth(int potion)
+{
+    health += potion;
+}
+
+int Thingies::HealthComp::GetHealth()
+{
+    return health;
+}
+
+
+
+
+
 // Ship Component functions-------------------------------------------------------------------------
 
-Thingies::ShipComp::ShipComp(Entity* newOwner, Render::ModelId mID)
+Thingies::ShipComp::ShipComp(Entity* newOwner, TransformComp* trans)
 {
     this->owner = newOwner;
+    transComp = trans;
     uint32_t numParticles = 2048;
     this->particleEmitterLeft = new Render::ParticleEmitter(numParticles);
     this->particleEmitterLeft->data = {
-        .origin = glm::vec4(this->position + (glm::vec3(this->transform[2]) * emitterOffset),1), // TODO: Ask Fredrik to explain how this works after the ship moves (It is not updated in Update function)
+        .origin = glm::vec4(this->position + (glm::vec3(this->transform[2]) * emitterOffset),1),
         .dir = glm::vec4(glm::vec3(-this->transform[2]), 0),
         .startColor = glm::vec4(0.38f, 0.76f, 0.95f, 1.0f) * 2.0f,
         .endColor = glm::vec4(0,0,0,1.0f),
@@ -132,7 +172,7 @@ Thingies::ShipComp::ShipComp(Entity* newOwner, Render::ModelId mID)
     Render::ParticleSystem::Instance()->AddEmitter(this->particleEmitterLeft);
     Render::ParticleSystem::Instance()->AddEmitter(this->particleEmitterRight);
 
-    model = mID;
+    transComp->SetTransform(transform);
 }
 
 Thingies::ShipComp::~ShipComp()
@@ -200,14 +240,9 @@ void Thingies::ShipComp::Update(float dt)
     //this->particleEmitter->data.decayTime = 0.16f;//+ (0.01f  * t);
     //this->particleEmitter->data.randomTimeOffsetDist = 0.06f;/// +(0.01f * t);
 
-    // Add transformcomp.transform = this->tramsform
+    transComp->SetTransform(transform);
 
     CheckCollisions();
-}
-
-void Thingies::ShipComp::Draw()
-{
-    Render::RenderDevice::Draw(model, transform);
 }
 
 bool Thingies::ShipComp::CheckCollisions()
@@ -297,3 +332,4 @@ void Thingies::LaserComp::Update(float dt)
         // Raycast
     }
 }
+

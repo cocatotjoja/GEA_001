@@ -186,8 +186,6 @@ class LaserComp : public BaseComponent
 private:
 	float laserSpeed;
 	TransformComp* transComp;
-	Render::ParticleEmitter* emitter;
-	uint32_t numParticles;
 
 public:
 	LaserComp(Entity* newOwner, TransformComp* tComp);

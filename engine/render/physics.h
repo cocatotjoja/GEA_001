@@ -91,4 +91,6 @@ ColliderMeshId LoadColliderMesh(std::string path);
 
 void SetTransform(ColliderId collider, glm::mat4 const& transform);
 
+void DebugDrawColliders();
+
 } // namespace Physics

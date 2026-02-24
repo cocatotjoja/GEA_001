@@ -103,7 +103,7 @@ Physics::ColliderId Thingies::ColliderComp::GetCollider()
 
 void Thingies::MoveComp::Update(float dt)
 {
-    glm::mat4 temp = glm::rotate(transform->GetTransform(), angle, axis);
+    glm::mat4 temp = glm::rotate(transform->GetTransform(), angle*dt, axis);
     transform->SetTransform(temp);
 }
 
@@ -270,29 +270,6 @@ Thingies::LaserComp::LaserComp(Entity* newOwner, TransformComp* tComp)
     transComp = tComp;
 
 
-
-    // Create Particle emitter
-    numParticles = 1;
-    emitter = new Render::ParticleEmitter(numParticles);
-    this->emitter->data = {
-        .origin = glm::vec4(0,0,0,1.0f), // TODO::SET POSITION
-        .dir = glm::vec4(glm::vec3(transComp->GetTransform()[2]), 0),
-        .startColor = glm::vec4(0.38f, 0.76f, 0.95f, 1.0f) * 2.0f,
-        .endColor = glm::vec4(0,0,0,1.0f),
-        .numParticles = numParticles,
-        .theta = glm::radians(0.0f),
-        .startSpeed = 1.2f,
-        .endSpeed = 0.0f,
-        .startScale = 0.025f,
-        .endScale = 0.0f,
-        .decayTime = 2.58f,
-        .randomTimeOffsetDist = 2.58f,
-        .looping = 0,
-        .emitterType = 1,
-        .discRadius = 0.020f
-    };
-    Render::ParticleSystem::Instance()->AddEmitter(emitter);
-
 }
 
 Thingies::LaserComp::~LaserComp()
@@ -306,7 +283,7 @@ void Thingies::LaserComp::Update(float dt)
     if (kbd->held[Input::Key::Space])
     {
         //Update Position
-        //Emitt particles
+
         // Raycast
     }
 }

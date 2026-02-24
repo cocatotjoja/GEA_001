@@ -1,3 +1,4 @@
+#include "physics.h"
 //------------------------------------------------------------------------------
 //  @file physics.cc
 //  @copyright (C) 2022 Individual contributors, see AUTHORS file
@@ -224,6 +225,32 @@ SetTransform(ColliderId collider, glm::mat4 const& transform)
     PS.w = glm::length(transform[0]);
     colliders.positionsAndScales[collider.index] = PS;
     colliders.invTransforms[collider.index] = glm::inverse(transform);
+}
+
+//------------------------------------------------------------------------------
+/**
+*/
+void DebugDrawColliders()
+{
+    for (size_t i = 0; i < colliders.active.size(); i++)
+    {
+        if (colliders.active[i])
+        {
+            ColliderMesh& mesh = meshes[colliders.meshes[i].index];
+            glm::mat4 t = glm::inverse(colliders.invTransforms[i]);
+
+            for (auto const& tri : mesh.tris)
+            {
+                glm::vec3 a = t * glm::vec4(tri.vertices[0], 1.0f);
+                glm::vec3 b = t * glm::vec4(tri.vertices[1], 1.0f);
+                glm::vec3 c = t * glm::vec4(tri.vertices[2], 1.0f);
+                              
+                Debug::DrawLine(a, b, 3.0f, { 1,1,1,1 }, { 1,1,1,1 });
+                Debug::DrawLine(b, c, 3.0f, { 1,1,1,1 }, { 1,1,1,1 });
+                Debug::DrawLine(c, a, 3.0f, { 1,1,1,1 }, { 1,1,1,1 });
+            }
+        }
+    }
 }
 
 //------------------------------------------------------------------------------

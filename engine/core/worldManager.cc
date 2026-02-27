@@ -71,7 +71,7 @@ void WorldManager::AddAsteroid(float span)
     
     TransformComp* tComp = new TransformComp(entity, transform);
     MeshComp* mComp = new MeshComp(entity, models[resourceIndex], tComp);
-    ColliderComp* cComp = new ColliderComp(entity, Physics::CreateCollider(colliderMeshes[resourceIndex], transform));
+    ColliderComp* cComp = new ColliderComp(entity, Physics::CreateCollider(colliderMeshes[resourceIndex], transform), tComp);
     MoveComp* moveComp = new MoveComp(entity, rotationAxis, glm::radians(Core::RandomFloatNTP()*4), tComp);
 
 
@@ -101,7 +101,7 @@ void WorldManager::AddShip()
 void WorldManager::Update(float dt)
 {
     // For checking that colliders rotate
-    // Physics::DebugDrawColliders();
+    //Physics::DebugDrawColliders();
 
     // TODO: Update entities
     for (size_t i = 0; i < this->entities.size(); i++)

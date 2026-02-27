@@ -92,6 +92,12 @@ Thingies::ColliderComp::~ColliderComp()
 	//std::cout << "Collider Component Destroyed!" << std::endl;
 }
 
+void Thingies::ColliderComp::Update(float dt)
+{
+    const glm::mat4 temp = transComp->GetTransform();
+    SetTransform(collider, temp);
+}
+
 Physics::ColliderId Thingies::ColliderComp::GetCollider()
 {
 	return collider;

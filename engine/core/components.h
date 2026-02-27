@@ -91,11 +91,12 @@ class ColliderComp : public BaseComponent
 {
 private:
 	Physics::ColliderId collider;
+	TransformComp* transComp;
 
 public:
-	ColliderComp(Entity* newOwner, Physics::ColliderId cID) : BaseComponent(newOwner, COLLIDER), collider(cID) {} ;
+	ColliderComp(Entity* newOwner, Physics::ColliderId cID, TransformComp* tComp) : BaseComponent(newOwner, COLLIDER), collider(cID), transComp(tComp) {} ;
 	~ColliderComp();
-	//void Update(float dt) override;
+	void Update(float dt) override;
 	Physics::ColliderId GetCollider();
 };
 

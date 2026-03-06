@@ -20,6 +20,7 @@ SET(files_core
 	components.cc
 	worldManager.h
 	worldManager.cc
+	flags.h
 	)
 SOURCE_GROUP("core" FILES ${files_core})
 	

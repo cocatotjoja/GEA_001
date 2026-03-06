@@ -4,6 +4,7 @@
 //------------------------------------------------------------------------------
 #include "config.h"
 #include "spacegameapp.h"
+#include "core/flags.h"
 
 /*
 void MemoryTest()
@@ -96,8 +97,14 @@ void MemoryTest()
 int
 main(int argc, const char** argv)
 {
+	const flags::args args(argc, argv);
+
 	// Game loop
 	Game::SpaceGameApp app;
+	
+	bool isServer = args.get<bool>("server", false);
+	std::string connectIp = args.get<std::string>("connect", "127.0.0.1");
+	
 	if (app.Open())
 	{
 		app.Run();

@@ -2,9 +2,12 @@
 // main.cc
 // (C) 2015-2018 Individual contributors, see AUTHORS file
 //------------------------------------------------------------------------------
+#include <iostream>
 #include "config.h"
 #include "spacegameapp.h"
 #include "core/flags.h"
+#include <enet/enet.h>
+
 
 /*
 void MemoryTest()
@@ -97,13 +100,19 @@ void MemoryTest()
 int
 main(int argc, const char** argv)
 {
-	const flags::args args(argc, argv);
+	//const flags::args args(argc, argv);
 
+	if (enet_initialize())
+	{
+		std::cout << "ENet failed to initialize!" << std::endl;
+		return EXIT_FAILURE;
+	}
+	atexit(enet_deinitialize);
 	// Game loop
 	Game::SpaceGameApp app;
 	
-	bool isServer = args.get<bool>("server", false);
-	std::string connectIp = args.get<std::string>("connect", "127.0.0.1");
+	//bool isServer = args.get<bool>("server", false);
+	//std::string connectIp = args.get<std::string>("connect", "127.0.0.1");
 	
 	if (app.Open())
 	{

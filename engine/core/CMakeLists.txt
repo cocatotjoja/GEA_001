@@ -21,6 +21,10 @@ SET(files_core
 	worldManager.h
 	worldManager.cc
 	flags.h
+	NetServer.h
+	NetServer.cc
+	NetClient.h
+	NetClient.cc
 	)
 SOURCE_GROUP("core" FILES ${files_core})
 	

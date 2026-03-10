@@ -9,6 +9,11 @@
 
 #include <enet/enet.h>
 
+enum ConnectionResult
+{
+	CONNECTION_FAILED,
+	CONNECTION_SUCCEEDED
+};
 
 class NetClient
 {
@@ -21,5 +26,6 @@ private:
 public:
 	NetClient();
 	~NetClient();
+	ConnectionResult Start();
 	void Update();
 };

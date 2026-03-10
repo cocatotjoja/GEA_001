@@ -97,10 +97,15 @@ void MemoryTest()
 }
 */
 
-int
-main(int argc, const char** argv)
+bool IsValid()
 {
-	//const flags::args args(argc, argv);
+	return true;
+}
+
+int
+main(int argc, char** argv)
+{
+	const flags::args args(argc, argv);
 
 	if (enet_initialize())
 	{

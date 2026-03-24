@@ -6,7 +6,7 @@ using namespace Thingies;
 
 WorldManager::WorldManager()
 {
-    //std::cout << "World Manager Created" << std::endl;
+    std::cout << "World Manager Created" << std::endl;
 }
 
 WorldManager::~WorldManager()
@@ -14,10 +14,8 @@ WorldManager::~WorldManager()
     //std::cout << "World Manager Destroyed" << std::endl;
 }
 
-void WorldManager::Start()
+void WorldManager::Start(bool isServer, std::string IP)
 {
-    this->entities.reserve(10000);
-
     // Load all models
     models[0] = Render::LoadModel("assets/space/Asteroid_1.glb");
     models[1] = Render::LoadModel("assets/space/Asteroid_2.glb");
@@ -36,27 +34,49 @@ void WorldManager::Start()
 
     // Load ship model
     shipModel = Render::LoadModel("assets/space/spaceship.glb");
-    AddShip();
-    
-    // Add near asteroids
-    for (size_t i = 0; i < 100; i++)
+
+
+    // Set up ENet manager
+    if (isServer == true)
     {
-        AddAsteroid(20.0f);
+        ENetServices = new NetServer();
+
+
+        AddShip(nextID);
+
+        // Add near asteroids
+        for (size_t i = 0; i < 100; i++)
+        {
+            // Update entityID
+
+            AddAsteroid(20.0f, nextID);
+            nextID++;
+        }
+        // Add far asteroids
+        for (size_t i = 0; i < 50; i++)
+        {
+            // Update entityID
+            AddAsteroid(80.0f, nextID);
+            nextID++;
+        }
     }
-    // Add far asteroids
-    for (size_t i = 0; i < 50; i++)
+    else
     {
-        AddAsteroid(80.0f);
+        ENetServices = new NetClient();
     }
+    ENetServices->Start(IP);
+    this->entities.reserve(10000);
 }
 
-void WorldManager::AddAsteroid(float span)
+void WorldManager::AddAsteroid(float span, uint32_t ID)
 {
     // Generate random mesh index
     size_t resourceIndex = (size_t)(Core::FastRandom() % 6);
     // Create Asteroid Entity
     Entity* entity = new Entity();
     entities.push_back(entity);
+
+    UpdateIndexMap();
 
     // Generate random location
     glm::vec3 translation = glm::vec3(
@@ -81,10 +101,12 @@ void WorldManager::AddAsteroid(float span)
     entity->AddComp(moveComp);
 }
 
-void WorldManager::AddShip()
+void WorldManager::AddShip(uint32_t ID)
 {
     Entity* entity = new Entity();
     entities.push_back(entity);
+
+    UpdateIndexMap();
 
     TransformComp* tComp = new TransformComp(entity, glm::mat4(1));
     MeshComp* mComp = new MeshComp(entity, shipModel, tComp);
@@ -98,10 +120,19 @@ void WorldManager::AddShip()
     entity->AddComp(hComp);
 }
 
+void Thingies::WorldManager::UpdateIndexMap()
+{
+    entityIndex[nextID] = entities.size() - 1;
+    nextID++;
+}
+
 void WorldManager::Update(float dt)
 {
     // For checking that colliders rotate
     //Physics::DebugDrawColliders();
+
+    // Check for ENet events
+    ENetServices->Update();
 
     // TODO: Update entities
     for (size_t i = 0; i < this->entities.size(); i++)

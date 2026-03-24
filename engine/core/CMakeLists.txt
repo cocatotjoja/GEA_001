@@ -25,6 +25,8 @@ SET(files_core
 	NetServer.cc
 	NetClient.h
 	NetClient.cc
+	NetBase.h
+	NetBase.cc
 	)
 SOURCE_GROUP("core" FILES ${files_core})
 	

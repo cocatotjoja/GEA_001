@@ -8,14 +8,9 @@
 
 
 #include <enet/enet.h>
+#include "NetBase.h"
 
-enum ConnectionResult
-{
-	CONNECTION_FAILED,
-	CONNECTION_SUCCEEDED
-};
-
-class NetClient
+class NetClient : public NetBase
 {
 private:
 	ENetHost* client;
@@ -24,8 +19,9 @@ private:
 	ENetPeer* peer;
 
 public:
-	NetClient();
-	~NetClient();
-	ConnectionResult Start();
-	void Update();
+	NetClient() {};
+	~NetClient() {};
+	ActionResult Start(std::string IP) override;
+	ActionResult End() override;
+	void Update() override;
 };

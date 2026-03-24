@@ -22,7 +22,7 @@ public:
 	/// open app
 	bool Open();
 	/// run app
-	void Run();
+	void Run(bool isServer, std::string IP);
 	/// exit app
 	void Exit();
 private:

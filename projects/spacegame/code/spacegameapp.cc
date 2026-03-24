@@ -76,11 +76,11 @@ SpaceGameApp::Open()
 /**
 */
 void
-SpaceGameApp::Run()
+SpaceGameApp::Run(bool isServer, std::string IP)
 {
     // Create World Manager
     Thingies::WorldManager worldM;
-    worldM.Start();
+    worldM.Start(isServer, IP);
 
     int w;
     int h;

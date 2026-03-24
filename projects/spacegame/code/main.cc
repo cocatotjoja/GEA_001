@@ -109,19 +109,20 @@ main(int argc, char** argv)
 
 	if (enet_initialize())
 	{
-		std::cout << "ENet failed to initialize!" << std::endl;
+		printf("ENet failed to initialize!\n");
 		return EXIT_FAILURE;
 	}
 	atexit(enet_deinitialize);
+	
 	// Game loop
 	Game::SpaceGameApp app;
 	
-	//bool isServer = args.get<bool>("server", false);
-	//std::string connectIp = args.get<std::string>("connect", "127.0.0.1");
+	bool isServer = args.get<bool>("server", false);
+	std::string connectIp = args.get<std::string>("connect", "127.0.0.1");
 	
 	if (app.Open())
 	{
-		app.Run();
+		app.Run(isServer, connectIp);
 		app.Close();
 	}
 	app.Exit();

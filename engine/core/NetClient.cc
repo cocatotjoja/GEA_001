@@ -31,6 +31,9 @@ ActionResult NetClient::Start(std::string IP)
 			// Handle recived packet
 			ClientStart* packet = (ClientStart*)event.packet->data;
 			if (packet->packetType == CLIENT_START)
+			{
+				// DO SOMETHING
+			}
 		}
 	}
 	else

@@ -18,7 +18,7 @@ private:
 	ENetEvent event;
 
 public:
-	NetServer() {};
+	NetServer(Thingies::WorldManager& newOwner) : NetBase(newOwner) {};
 	~NetServer() {};
 	ActionResult Start(std::string IP) override;
 	ActionResult End() override;

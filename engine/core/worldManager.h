@@ -39,6 +39,7 @@ public:
 	void AddAsteroid(float span, uint32_t ID);
 	void AddShip(uint32_t ID);
 	void UpdateIndexMap();
+	Entity* GetEntity(uint32_t index);
 	
 };
 }

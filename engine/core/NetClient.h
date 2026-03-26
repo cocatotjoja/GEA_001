@@ -19,7 +19,7 @@ private:
 	ENetPeer* peer;
 
 public:
-	NetClient() {};
+	NetClient(Thingies::WorldManager& newOwner) : NetBase(newOwner) {};
 	~NetClient() {};
 	ActionResult Start(std::string IP) override;
 	ActionResult End() override;

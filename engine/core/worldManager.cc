@@ -39,7 +39,7 @@ void WorldManager::Start(bool isServer, std::string IP)
     // Set up ENet manager
     if (isServer == true)
     {
-        ENetServices = new NetServer();
+        ENetServices = new NetServer(*this);
 
 
         AddShip(nextID);
@@ -62,7 +62,7 @@ void WorldManager::Start(bool isServer, std::string IP)
     }
     else
     {
-        ENetServices = new NetClient();
+        ENetServices = new NetClient(*this);
     }
     ENetServices->Start(IP);
     this->entities.reserve(10000);
@@ -124,6 +124,29 @@ void Thingies::WorldManager::UpdateIndexMap()
 {
     entityIndex[nextID] = entities.size() - 1;
     nextID++;
+}
+
+Entity* Thingies::WorldManager::GetEntity(uint32_t index)
+{
+    size_t entIndex;
+
+    auto it = entityIndex.find(index);
+
+    if (it != entityIndex.end())
+    {
+        entIndex = entityIndex.at(index);
+    }
+    else
+    {
+        return nullptr;
+    }
+
+    if (entIndex < entities.size())
+    {
+        return entities[entIndex];
+    }
+
+    return nullptr;
 }
 
 void WorldManager::Update(float dt)

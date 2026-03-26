@@ -1,13 +1,16 @@
 #pragma once
 #include <iostream>
 
+namespace Thingies
+{
+	class WorldManager;
+}
 
 enum ActionResult
 {
 	ACTION_FAILED,
 	ACTION_SUCCEEDED
 };
-
 
 enum PacketType
 {
@@ -59,9 +62,13 @@ struct ShipUpdate
 class NetBase
 {
 public:
-	NetBase() {};
+	Thingies::WorldManager& owner;
+
+	NetBase(Thingies::WorldManager& newOwner) : owner(newOwner) {};
 	virtual ~NetBase() {};
 	virtual ActionResult Start(std::string IP);
 	virtual ActionResult End();
 	virtual void Update() {};
+
+	void UpdateAsteroid(AsteroidUpdate packetData);
 };

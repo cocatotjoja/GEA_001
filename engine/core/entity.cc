@@ -3,7 +3,7 @@
 
 using namespace Thingies;
 
-Thingies::Entity::Entity()
+Entity::Entity()
 {
 	//std::cout << "Entity Created!" << std::endl;
 }
@@ -13,7 +13,7 @@ Entity::~Entity()
 	compList.clear();
 }
 
-void Thingies::Entity::AddComp(BaseComponent* newComp)
+void Entity::AddComp(BaseComponent* newComp)
 {
 	compList.push_back(newComp);
 }
@@ -32,7 +32,7 @@ BaseComponent* Entity::GetComp(CompType typeC)
 }
 
 
-void Thingies::Entity::Update(float dt)
+void Entity::Update(float dt)
 {
 	for (size_t i = 0; i < this->compList.size(); i++)
 	{
@@ -41,7 +41,7 @@ void Thingies::Entity::Update(float dt)
 }
 
 
-void Thingies::Entity::Draw()
+void Entity::Draw()
 {
 	for (size_t i = 0; i < this->compList.size(); i++)
 	{

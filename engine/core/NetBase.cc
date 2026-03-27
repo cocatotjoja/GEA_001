@@ -27,3 +27,8 @@ void NetBase::UpdateAsteroid(AsteroidUpdate packetData)
 	glm::mat4 trans = glm::make_mat4(packetData.transform);
 	tComp->SetTransform(trans);
 }
+
+
+// Multiple packet in one update
+// Entity types
+// Sammes multiple applicants
